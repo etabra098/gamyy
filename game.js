@@ -1,10 +1,10 @@
 // Game Variables
 let currentLevel = 1;
 const shapes = ["square", "circle"];
-const nextLevelShapes = ["dog", "cat"]; // Example animal shapes for Level 2
-const carShapes = ["car", "truck"]; // Example car shapes for Level 3
+const nextLevelShapes = ["dog", "cat"]; // Animal shapes for Level 2
+const carShapes = ["car", "truck"]; // Car shapes for Level 3
 
-// Function to generate draggable shapes
+// Function to generate draggable shapes based on the current level
 function generateShapes(level) {
     const shapesContainer = document.getElementById("shapes-container");
     let levelShapes = [];
@@ -13,7 +13,7 @@ function generateShapes(level) {
         levelShapes = shapes;
     } else if (level === 2) {
         levelShapes = nextLevelShapes;
-    } else {
+    } else if (level === 3) {
         levelShapes = carShapes;
     }
 
@@ -27,12 +27,7 @@ function generateShapes(level) {
     });
 }
 
-// Function to handle drag start event
-function handleDragStart(event) {
-    event.dataTransfer.setData("shape", event.target.className);
-}
-
-// Function to generate drop zones
+// Function to generate drop zones based on the current level
 function generateDropZones(level) {
     const dropZonesContainer = document.getElementById("drop-zones-container");
     dropZonesContainer.innerHTML = "";
@@ -42,11 +37,11 @@ function generateDropZones(level) {
         levelShapes = shapes;
     } else if (level === 2) {
         levelShapes = nextLevelShapes;
-    } else {
+    } else if (level === 3) {
         levelShapes = carShapes;
     }
 
-    levelShapes.forEach((shape, index) => {
+    levelShapes.forEach((shape) => {
         const dropZone = document.createElement("div");
         dropZone.classList.add("drop-zone", `zone-${shape}`);
         dropZone.addEventListener("dragover", handleDragOver);
@@ -55,7 +50,12 @@ function generateDropZones(level) {
     });
 }
 
-// Handle drag over to allow drop
+// Handle drag start event
+function handleDragStart(event) {
+    event.dataTransfer.setData("shape", event.target.className.split(" ")[1]);
+}
+
+// Handle drag over event to allow dropping
 function handleDragOver(event) {
     event.preventDefault();
 }
@@ -65,7 +65,7 @@ function handleDrop(event) {
     const draggedShape = event.dataTransfer.getData("shape");
     const targetZone = event.target;
 
-    if (draggedShape === targetZone.className.split(" ")[1]) {
+    if (draggedShape === targetZone.classList[1].split('-')[1]) {
         targetZone.appendChild(document.querySelector(`.${draggedShape}`));
         checkGameCompletion();
     }
@@ -82,7 +82,7 @@ function checkGameCompletion() {
     }
 }
 
-// Next Level Button Click
+// Move to the next level
 document.getElementById("next-level-btn").addEventListener("click", () => {
     currentLevel++;
     generateShapes(currentLevel);
@@ -90,11 +90,11 @@ document.getElementById("next-level-btn").addEventListener("click", () => {
     document.getElementById("congratulation-popup").style.display = "none";
 });
 
-// Back to Home Button
+// Back to home button functionality
 document.getElementById("home-btn").addEventListener("click", () => {
-    window.location.href = "/"; // Assuming homepage is the root directory
+    window.location.href = "/"; // Redirect to home page (you can set it as your root path)
 });
 
-// Initial Game Setup
+// Initial game setup
 generateShapes(currentLevel);
 generateDropZones(currentLevel);
