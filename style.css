@@ -1,0 +1,81 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f8ff;
+}
+
+.game-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shapes-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.drop-zones-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.shape, .drop-zone {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.shape.square {
+    background-color: #ff6347;
+}
+
+.shape.circle {
+    background-color: #4682b4;
+    border-radius: 50%;
+}
+
+.drop-zone {
+    background-color: #d3d3d3;
+    border: 2px dashed #333;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.popup {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+}
+
+.next-level-btn {
+    background-color: #ff9800;
+}
+
+.home-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
